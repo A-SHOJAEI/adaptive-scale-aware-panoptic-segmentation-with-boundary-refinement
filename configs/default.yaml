@@ -1,0 +1,72 @@
+# Default configuration for Adaptive Scale-Aware Panoptic Segmentation
+
+# Data configuration
+data:
+  dataset: "coco"
+  data_dir: "./data/coco"
+  train_ann_file: "annotations/panoptic_train2017.json"
+  val_ann_file: "annotations/panoptic_val2017.json"
+  train_img_dir: "train2017"
+  val_img_dir: "val2017"
+  num_classes: 133  # 80 thing classes + 53 stuff classes
+  thing_classes: 80
+  stuff_classes: 53
+  batch_size: 4
+  num_workers: 4
+  input_size: [512, 512]
+  download: true
+
+# Model configuration
+model:
+  backbone: "resnet50"
+  pretrained: true
+  fpn_channels: 256
+  num_fpn_levels: 5
+  use_boundary_refinement: true
+  use_scale_adaptive_fusion: true
+  boundary_channels: 64
+  distance_transform_bins: 10
+  scale_attention_heads: 8
+  dropout: 0.1
+
+# Training configuration
+training:
+  epochs: 50
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  optimizer: "adamw"
+  scheduler: "cosine"
+  warmup_epochs: 5
+  warmup_lr: 0.00001
+  min_lr: 0.000001
+  gradient_clip_norm: 1.0
+  mixed_precision: true
+  early_stopping_patience: 10
+  save_every_n_epochs: 5
+  resume_from_checkpoint: null
+
+# Loss configuration
+loss:
+  semantic_weight: 1.0
+  instance_weight: 1.0
+  boundary_weight: 0.5
+  panoptic_weight: 2.0
+  focal_alpha: 0.25
+  focal_gamma: 2.0
+  dice_smooth: 1.0
+
+# Evaluation configuration
+evaluation:
+  metrics: ["panoptic_quality", "segmentation_quality", "recognition_quality", "boundary_iou"]
+  save_visualizations: true
+  max_visualizations: 50
+
+# System configuration
+system:
+  seed: 42
+  device: "cuda"
+  log_interval: 10
+  checkpoint_dir: "./checkpoints"
+  results_dir: "./results"
+  mlflow_tracking_uri: "./mlruns"
+  experiment_name: "adaptive_panoptic_segmentation"
