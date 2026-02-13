@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Data
+data/
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Models and checkpoints
+checkpoints/
+models/*.pth
+models/*.pt
+*.ckpt
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Logs
+logs/
+*.log
+
+# Results
+results/*.png
+results/*.jpg
+results/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+
+# Auto-added by publisher
+# Training artifacts (auto-added by publisher)
+*.pt
+*.pth
+*.onnx
+*.bin
+*.safetensors
+wandb/
+mlflow.db
+data/*.arrow
+data/*.parquet
+data/*.h5
+data/*.hdf5
+data/raw/
+data/processed/
+outputs/
+.venv/

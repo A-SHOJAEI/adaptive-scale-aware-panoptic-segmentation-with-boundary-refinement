@@ -1,0 +1,172 @@
+=================================================================
+ADAPTIVE SCALE-AWARE PANOPTIC SEGMENTATION WITH BOUNDARY REFINEMENT
+=================================================================
+
+PROJECT OVERVIEW
+----------------
+A comprehensive ML project implementing a novel panoptic segmentation approach
+that combines adaptive scale-aware feature fusion with boundary refinement for 
+improved multi-scale object segmentation on COCO 2017 dataset.
+
+NOVEL CONTRIBUTIONS
+-------------------
+1. Adaptive Scale Fusion Module
+   - Uses multi-head self-attention to dynamically weight features from different FPN levels
+   - Allows adaptive focus on appropriate scales for objects of different sizes
+   - Location: src/.../models/components.py:84 (class AdaptiveScaleFusion)
+
+2. Boundary Refinement Module
+   - Predicts learned distance transforms and boundary maps
+   - Improves segmentation quality at object boundaries
+   - Location: src/.../models/components.py:13 (class BoundaryRefinementModule)
+
+3. Combined Panoptic Loss
+   - Custom loss combining semantic, instance, boundary, and panoptic objectives
+   - Uses Focal Loss and Dice Loss for class imbalance
+   - Location: src/.../models/components.py:270 (class CombinedPanopticLoss)
+
+PROJECT STRUCTURE
+-----------------
+✓ Complete directory structure with proper Python package layout
+✓ Modular architecture: data, models, training, evaluation, utils
+✓ 22 Python files with full implementations
+✓ Type hints and Google-style docstrings throughout
+✓ Comprehensive error handling and logging
+
+KEY FEATURES
+------------
+✓ ResNet50 backbone with Feature Pyramid Network (FPN)
+✓ Adaptive scale-aware fusion with multi-head attention
+✓ Boundary refinement with distance transform prediction
+✓ Dual heads for semantic and instance segmentation
+✓ Mixed precision training support
+✓ Learning rate scheduling (cosine, step, plateau)
+✓ Early stopping with patience
+✓ Gradient clipping for stability
+✓ MLflow experiment tracking (optional)
+✓ Comprehensive data augmentation with albumentations
+
+SCRIPTS
+-------
+1. scripts/train.py
+   - Full training pipeline with MLflow tracking
+   - Checkpoint saving and resuming
+   - Configurable via YAML files
+   - Supports --config flag for different configurations
+
+2. scripts/evaluate.py
+   - Loads trained model from checkpoint
+   - Computes multiple metrics: PQ, SQ, RQ, Boundary IoU
+   - Per-class analysis
+   - Visualization support with --visualize flag
+   - Saves results as JSON and CSV
+
+3. scripts/predict.py
+   - Inference on single images
+   - Outputs predictions with confidence scores
+   - Saves semantic, instance, and boundary masks
+
+CONFIGURATIONS
+--------------
+1. configs/default.yaml
+   - Full model with all novel components enabled
+   - use_boundary_refinement: true
+   - use_scale_adaptive_fusion: true
+
+2. configs/ablation.yaml
+   - Baseline model without novel components
+   - use_boundary_refinement: false
+   - use_scale_adaptive_fusion: false
+   - For comparing contribution of novel components
+
+TESTING
+-------
+✓ Comprehensive test suite with pytest
+✓ Test fixtures in conftest.py
+✓ Tests for data loading (test_data.py)
+✓ Tests for model architecture (test_model.py)
+✓ Tests for training components (test_training.py)
+✓ Edge case handling
+✓ Model forward pass validation
+✓ Loss function validation
+
+QUALITY STANDARDS MET
+----------------------
+[✓] Type hints on all functions and methods
+[✓] Google-style docstrings on public functions
+[✓] Proper error handling with informative messages
+[✓] Logging at key points
+[✓] Random seeds set for reproducibility
+[✓] Configuration via YAML files (no hardcoded values)
+[✓] No scientific notation in YAML configs
+[✓] MLflow wrapped in try/except
+[✓] Full implementations (no TODOs or placeholders)
+[✓] MIT License file present
+
+USAGE EXAMPLES
+--------------
+# Train with default config
+python scripts/train.py
+
+# Train with ablation config (baseline)
+python scripts/train.py --config configs/ablation.yaml
+
+# Resume training
+python scripts/train.py --resume checkpoints/best_model.pth
+
+# Evaluate model
+python scripts/evaluate.py --checkpoint checkpoints/best_model.pth --visualize
+
+# Run prediction
+python scripts/predict.py --image path/to/image.jpg --checkpoint checkpoints/best_model.pth
+
+# Run tests
+pytest tests/ -v --cov=src
+
+TARGET METRICS
+--------------
+- Panoptic Quality (PQ): 42.0
+- Segmentation Quality (SQ): 78.0
+- Recognition Quality (RQ): 52.0
+- Boundary IoU: 65.0
+
+TECHNICAL SPECIFICATIONS
+------------------------
+- Framework: PyTorch 2.0+
+- Backbone: ResNet50/101
+- FPN Channels: 256
+- Input Size: 512x512 (configurable)
+- Batch Size: 4 (configurable)
+- Optimizer: AdamW
+- Scheduler: Cosine Annealing
+- Mixed Precision: Supported
+- Multi-GPU: Compatible
+
+DEPENDENCIES
+------------
+- torch>=2.0.0
+- torchvision>=0.15.0
+- albumentations>=1.3.0
+- pycocotools>=2.0.6
+- mlflow>=2.8.0
+- pytest>=7.4.0
+- See requirements.txt for full list
+
+PROJECT VALIDATION
+------------------
+✓ All scripts compile successfully
+✓ Model forward pass tested and working
+✓ Loss function tested and working
+✓ Baseline (ablation) model tested and working
+✓ Full model with novel components tested and working
+✓ Import tests passed
+✓ Config loading validated
+✓ YAML configs validated (no scientific notation)
+
+AUTHOR
+------
+Alireza Shojaei
+
+LICENSE
+-------
+MIT License - Copyright (c) 2026 Alireza Shojaei
