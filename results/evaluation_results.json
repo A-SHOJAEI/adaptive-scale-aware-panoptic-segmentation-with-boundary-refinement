@@ -1,0 +1,20 @@
+{
+  "validation_metrics": {
+    "panoptic_quality": 0.04429579014098807,
+    "segmentation_quality": 0.04429579014098807,
+    "recognition_quality": 39.84962406015037,
+    "boundary_iou": 100.0,
+    "semantic_iou": 0.11020326302856394,
+    "instance_iou": 48.74373020729508
+  },
+  "training_metrics": {
+    "panoptic_quality": 0.04434999350844788,
+    "segmentation_quality": 0.044369794479591974,
+    "recognition_quality": 39.88107214423004,
+    "boundary_iou": 100.0,
+    "semantic_iou": 0.10900180040260912,
+    "instance_iou": 45.81139657492425
+  },
+  "config_file": "configs/default.yaml",
+  "checkpoint_file": "checkpoints/best_model.pth"
+}
